@@ -222,6 +222,14 @@ fn repl_detects_continuation_mode_for_common_cases() {
         ReplContinuationMode::IncompleteImplicit
     );
     assert_eq!(
+        detect_repl_continuation_mode("@decorator\nvalue = 1"),
+        ReplContinuationMode::Complete
+    );
+    assert_eq!(
+        detect_repl_continuation_mode("@decorator\nvalue = 1\n"),
+        ReplContinuationMode::Complete
+    );
+    assert_eq!(
         detect_repl_continuation_mode("@decorator\nclass SearchResult:\n"),
         ReplContinuationMode::IncompleteBlock
     );
