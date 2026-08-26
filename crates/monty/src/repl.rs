@@ -929,10 +929,10 @@ fn starts_with_triple_quote(source: &str) -> bool {
     // quote distinguishes the forms without treating `"unfinished` as input
     // that should continue.
     let bytes = source.as_bytes();
-    let Some(quote_start) = bytes.iter().position(|byte| matches!(byte, b'\'' | b'"')) else {
-        return false;
-    };
-    matches!(bytes.get(quote_start..quote_start + 3), Some(b"'''" | b"\"\"\""))
+    bytes
+        .iter()
+        .position(|byte| matches!(byte, b'\'' | b'"'))
+        .is_some_and(|quote_start| matches!(bytes.get(quote_start..quote_start + 3), Some(b"'''" | b"\"\"\"")))
 }
 
 // ---------------------------------------------------------------------------
